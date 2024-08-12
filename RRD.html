@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de RRD - GFTT BJ</title>
+</head>
+<body>
+    <h1>GERADOR DE RRD</h1>
+    <form id="checkbox-form">
+        <label>
+            <input type="checkbox" name="option1" value="- SUBSTITUIR FAIXAS REFLETIVAS EM MAU ESTADO NA LATERAL E TRASEIRA DO VEÍCULO"> Faixas Refletivas
+        </label><br>
+        <label>
+            <input type="checkbox" name="option2" value="- APRESENTAR PARA-CHOQUE TRASEIRO COM FAIXA REFLETIVA ÍNTEGRA"> Faixa Refletiva Para-choque
+        </label><br>
+        <label>
+            <input type="checkbox" name="option3" value="- APRESENTAR PARA-CHOQUE TRASEIRO COM PLAQUETA DO FABRICANTE"> Plaqueta do Para-choque
+        </label><br>
+        <label>
+            <input type="checkbox" name="option4" value="- INSTALAR FAIXAS REFLETIVAS NA LATERAL DO VEÍCULO EM QUANTIDADE SUFICIENTE (50%)"> Faixas Refletivas Qtd Lateral
+        </label><br>
+        <label>
+            <input type="checkbox" name="option5" value="- INSTALAR FAIXAS REFLETIVAS NA TRASEIRA DO VEÍCULO EM QUANTIDADE SUFICIENTE (80%)"> Faixas Refletivas Qtd Traseira
+        </label><br>
+        <label>
+            <input type="checkbox" name="option6" value="- TROCAR PARA-BRISAS DIANTEIRO COM DANO"> Para-brisa dianteiro
+        </label><br>
+        <label>
+            <input type="checkbox" name="option7" value="- TROCAR PNEU DO Xº EIXO xxxdiresq xxxintext"> Pneu Ruim
+        </label><br>
+        <label>
+            <input type="checkbox" name="option8" value="- REMOVER PELICULAS SEM CHANCELA DOS VIDROS LATERAIS"> Película vidro lateral sem chancela
+        </label><br>
+        <label>
+            <input type="checkbox" name="option9" value="- REMOVER ADESIVOS DO VIDRO XXXlateralparabrisa"> Adesivo no vidro
+        </label><br>
+        <label>
+            <input type="checkbox" name="option10" value="- TROCAR PLACAS PARA O MODELO MERCOSUL"> Placa antiga ruim
+        </label><br>
+        <label>
+            <input type="checkbox" name="option11" value="- TROCAR PLACA XXXdianttras"> Placa nova ruim
+        </label><br>
+        <label>
+            <input type="checkbox" name="option12" value="- REMOVER LAMPADAS DE LED NO FAROL DE xxxposição"> LED
+        </label><br>
+        <label>
+            <input type="checkbox" name="option13" value="- SUBSTITUIR LAMPADAS DE POSIÇÃO LATERAIS NA COR BRANCA PARA AMARELO-AMBAR"> Lampadas de posição brancas
+        </label><br>
+        <label>
+            <input type="checkbox" name="option14" value="- REGULARIZAR SUSPENSÃO DO VEÍCULO, ENCONTRA-SE ARQUEADA COM XX cm"> Veículo arqueado
+        </label><br>
+        <label>
+            <input type="checkbox" name="option15" value="- REGULARIZAR ESCAPAMENTO COM DESCARGA LIVRE"> Descarga livre
+        </label><br>
+		<label>
+            <input type="checkbox" name="option16" value="- AFERIR CRONOTACOGRAFO"> Tacográfo não aferido
+        </label><br>
+        <button type="button" onclick="generateText()">Gerar texto do RRD</button>
+    </form>
+    
+    <h2>TEXTO DO RRD</h2>
+    <p id="output"></p>
+    <button id="copy-button" onclick="copyToClipboard()">Copiar para clipboard</button>
+
+    <script>
+        function generateText() {
+            const form = document.getElementById('checkbox-form');
+            const output = document.getElementById('output');
+            let generatedText = "";
+
+            const formData = new FormData(form);
+            const selectedOptions = [];
+
+            // Iterate over the formData entries to check for selected options
+            for (let [name, value] of formData.entries()) {
+                selectedOptions.push(value);
+            }
+
+            // Generate text based on selected options, joined with newline characters
+            if (selectedOptions.length > 0) {
+                generatedText = selectedOptions.join("\n");
+            } else {    
+                generatedText = "Nada foi selecionado";
+            }
+
+            // Display the generated text in the output element with newlines
+            output.innerHTML = generatedText.replace(/\n/g, "<br>");
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('output').textContent;
+
+            // Create a temporary textarea element
+            const textarea = document.createElement("textarea");
+            textarea.value = output;
+
+            // Append it to the body (necessary for it to work in all browsers)
+            document.body.appendChild(textarea);
+
+            // Select the text inside the textarea
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text to the clipboard
+            document.execCommand("copy");
+
+            // Remove the temporary textarea element
+            document.body.removeChild(textarea);
+
+            // Notify the user that the text has been copied
+            alert("Texto copiado para o clipboard!");
+        }
+    </script>
+    <h3>PRF DANIEL LIMA <br> GFTT BJ</h3>
+</body>
+</html>
