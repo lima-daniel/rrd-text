@@ -88,29 +88,30 @@
             output.innerHTML = generatedText.replace(/\n/g, "<br>");
         }
 
-        function copyToClipboard() {
-            const output = document.getElementById('output').textContent;
+	function copyToClipboard() {
+		const output = document.getElementById('output').innerText; // Use innerText to preserve line breaks
 
-            // Create a temporary textarea element
-            const textarea = document.createElement("textarea");
-            textarea.value = output;
+		// Create a temporary textarea element
+		const textarea = document.createElement("textarea");
+		textarea.value = output;
 
-            // Append it to the body (necessary for it to work in all browsers)
-            document.body.appendChild(textarea);
+		// Append it to the body (necessary for it to work in all browsers)
+		document.body.appendChild(textarea);
 
-            // Select the text inside the textarea
-            textarea.select();
-            textarea.setSelectionRange(0, 99999); // For mobile devices
+		// Select the text inside the textarea
+		textarea.select();
+		textarea.setSelectionRange(0, 99999); // For mobile devices
 
-            // Copy the text to the clipboard
-            document.execCommand("copy");
+		// Copy the text to the clipboard
+		document.execCommand("copy");
 
-            // Remove the temporary textarea element
-            document.body.removeChild(textarea);
+		// Remove the temporary textarea element
+		document.body.removeChild(textarea);
 
-            // Notify the user that the text has been copied
-            alert("Texto copiado para o clipboard!");
-        }
+		// Notify the user that the text has been copied
+		alert("Texto copiado para o clipboard!");
+		}
+
     </script>
     <h3>PRF DANIEL LIMA <br> GFTT BJ</h3>
 </body>
